@@ -37,6 +37,9 @@ export function PostApi<ResponseType, BodyType>(endpoint: string) {
 export function MockApi<ResponseType, BodyType>(response: ResponseType) {
   return function (body: BodyType) {
     void body;
-    return Promise.resolve(response);
+    console.log(body);
+    return new Promise<ResponseType>((resolve) =>
+      setTimeout(() => resolve(response), 1000),
+    );
   };
 }

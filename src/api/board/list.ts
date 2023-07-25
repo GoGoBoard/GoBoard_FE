@@ -7,9 +7,9 @@ type BoardListItem = {
   timestamp: number;
   likes: number;
 };
-type BoardListResponse = { data: BoardListItem[] };
+type ListBoardResponse = { data: BoardListItem[] };
 
-export const listBoard = MockApi<BoardListResponse, { page: number }>({
+export const listBoard = MockApi<ListBoardResponse, { page: number }>({
   data: [
     {
       index: 1,

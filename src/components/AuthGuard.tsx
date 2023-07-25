@@ -9,7 +9,7 @@ import { getSession } from '../api/auth/login';
 export function AuthGuard() {
   const { status, error } = useQuery({
     queryKey: ['sessionCheck'],
-    queryFn: getSession,
+    queryFn: () => getSession({}),
     staleTime: Infinity,
   });
   const navigate = useNavigate();

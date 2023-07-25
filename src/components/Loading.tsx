@@ -4,7 +4,12 @@ export default function Loading() {
   return (
     <Stack
       spacing={2}
-      sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+      sx={{
+        display: 'flex',
+        height: '100vh',
+        alignItems: 'center',
+        justifyContent: 'center',
+      }}
     >
       <CircularProgress />
       <Typography variant="h4">Loading...</Typography>
