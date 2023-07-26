@@ -1,6 +1,6 @@
 import {
   Route,
-  createBrowserRouter,
+  createHashRouter,
   createRoutesFromElements,
 } from 'react-router-dom';
 
@@ -10,7 +10,7 @@ import Board from './pages/Board';
 import Index from './pages/Index';
 import Login from './pages/Login';
 
-export const router = createBrowserRouter(
+export const router = createHashRouter(
   createRoutesFromElements(
     <Route path="/" element={<Base />}>
       <Route index element={<Index />} />
