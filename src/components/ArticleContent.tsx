@@ -32,7 +32,7 @@ export function ArticleContentFallback() {
 }
 
 export function ArticleContent({ articleIdx }: ArticleContentProps) {
-  const article = useQuery({
+  const { data } = useQuery({
     queryKey: ['readArticle', articleIdx],
     queryFn: () => readArticle({ articleIdx }),
     suspense: true,
@@ -41,13 +41,13 @@ export function ArticleContent({ articleIdx }: ArticleContentProps) {
   return (
     <>
       <Stack spacing={2} sx={{ mt: 4 }}>
-        <Typography variant="h3">{article.data?.data.title}</Typography>
-        <UserAvatar author={article.data?.data.author} />
-        <DateTime timestamp={article.data?.data.timestamp} />
+        <Typography variant="h3">{data?.data.title}</Typography>
+        <UserAvatar author={data?.data.author} />
+        <DateTime timestamp={data?.data.timestamp} />
       </Stack>
       <Divider sx={{ my: 4 }} />
       <Stack>
-        <Typography>{article.data?.data.content}</Typography>
+        <Typography>{data?.data.content}</Typography>
       </Stack>
     </>
   );
