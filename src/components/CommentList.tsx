@@ -44,6 +44,7 @@ export function CommentListFallback() {
 
       <Stack spacing={4} padding={2}>
         <CommentFallback />
+        <CommentFallback />
       </Stack>
     </>
   );
