@@ -1,9 +1,13 @@
-import { Typography } from '@mui/material';
+import { Typography, TypographyProps } from '@mui/material';
 
-interface DateTimeProps {
+interface DateTimeProps extends TypographyProps {
   timestamp?: number;
 }
 
-export function DateTime({ timestamp }: DateTimeProps) {
-  return <Typography>{new Date(timestamp ?? 0).toString()}</Typography>;
+export function DateTime(props: DateTimeProps) {
+  return (
+    <Typography {...props}>
+      {new Date(props.timestamp ?? 0).toString()}
+    </Typography>
+  );
 }
