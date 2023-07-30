@@ -14,7 +14,7 @@ export const getComments = MockApi<CommentsResponse, { articleIdx: number }>({
       index: 123,
       author: 'admin',
       content: `Test comment text.`,
-      timestamp: Date.now() - 3600 * 1000,
+      timestamp: Date.now() - Math.random() * 7200 * 1000,
     },
   ],
 });

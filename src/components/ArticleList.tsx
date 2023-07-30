@@ -16,6 +16,7 @@ import {
 import { useQuery } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 
+import { DateTime } from './DateTime';
 import { listBoard } from '../api/board/list';
 
 function ArticleListHead() {
@@ -92,7 +93,7 @@ export function ArticleList() {
                 <TableCell align="center">{article.title}</TableCell>
                 <TableCell align="center">{article.author}</TableCell>
                 <TableCell align="center">
-                  {new Date(article.timestamp).toLocaleString()}
+                  <DateTime timestamp={article.timestamp} />
                 </TableCell>
                 <TableCell align="center">{article.likes}</TableCell>
               </TableRow>
