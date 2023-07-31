@@ -4,7 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 import { Outlet, useNavigate } from 'react-router-dom';
 
 import Loading from './Loading';
-import { getSession } from '../api/auth/login';
+import { getSession } from '../api/auth/session';
 
 export function AuthGuard() {
   const { status, error } = useQuery({
