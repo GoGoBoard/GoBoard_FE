@@ -64,7 +64,9 @@ export function CommentList({ articleIdx }: CommentListProps) {
       </Typography>
 
       <Stack spacing={4} padding={2}>
-        {comments.data?.data.map((comment) => <Comment comment={comment} />)}
+        {comments.data?.data.map((comment) => (
+          <Comment key={comment.index} comment={comment} />
+        ))}
       </Stack>
     </>
   );
