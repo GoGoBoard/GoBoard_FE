@@ -49,15 +49,17 @@ export function ArticleListFallback() {
         <Table sx={{ minWidth: 'sm' }}>
           <ArticleListHead />
           <TableBody>
-            {Array(5).fill(
-              <TableRow hover>
-                <SkeletonCell />
-                <SkeletonCell />
-                <SkeletonCell />
-                <SkeletonCell />
-                <SkeletonCell />
-              </TableRow>,
-            )}
+            {Array(5)
+              .fill(null)
+              .map((_, idx) => (
+                <TableRow hover key={idx}>
+                  <SkeletonCell />
+                  <SkeletonCell />
+                  <SkeletonCell />
+                  <SkeletonCell />
+                  <SkeletonCell />
+                </TableRow>
+              ))}
           </TableBody>
         </Table>
       </TableContainer>
