@@ -34,12 +34,16 @@ export function PostApi<ResponseType, BodyType>(endpoint: string) {
   };
 }
 
-export function MockApi<ResponseType, BodyType>(response: ResponseType) {
+export function MockApi<ResponseType, BodyType>(
+  response: ResponseType,
+  failRatio: number = 0,
+) {
   return function (body: BodyType) {
     void body;
     console.log(body);
-    return new Promise<ResponseType>((resolve) =>
-      setTimeout(() => resolve(response), 1000),
-    );
+    return new Promise<ResponseType>((resolve, reject) => {
+      if (Math.random() < failRatio) reject();
+      setTimeout(() => resolve(response), 1000);
+    });
   };
 }

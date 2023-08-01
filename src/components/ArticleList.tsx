@@ -75,7 +75,6 @@ export function ArticleList() {
   const { data } = useQuery({
     queryKey: ['boardList', page],
     queryFn: () => listBoard({ page }),
-    suspense: true,
   });
 
   return (

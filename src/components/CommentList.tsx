@@ -54,7 +54,6 @@ export function CommentList({ articleIdx }: CommentListProps) {
   const comments = useQuery({
     queryKey: ['getCOmments', articleIdx],
     queryFn: () => getComments({ articleIdx }),
-    suspense: true,
   });
 
   return (

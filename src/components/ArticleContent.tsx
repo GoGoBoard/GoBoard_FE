@@ -35,7 +35,6 @@ export function ArticleContent({ articleIdx }: ArticleContentProps) {
   const { data } = useQuery({
     queryKey: ['readArticle', articleIdx],
     queryFn: () => readArticle({ articleIdx }),
-    suspense: true,
   });
 
   return (
