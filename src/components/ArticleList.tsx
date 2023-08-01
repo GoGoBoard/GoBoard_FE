@@ -1,8 +1,5 @@
-import { useState } from 'react';
-
 import {
   Box,
-  Pagination,
   Skeleton,
   Stack,
   Table,
@@ -18,6 +15,10 @@ import { useNavigate } from 'react-router-dom';
 
 import { DateTime } from './DateTime';
 import { listBoard } from '../api/board/list';
+
+type ArticleListProps = {
+  page: number;
+};
 
 function ArticleListHead() {
   return (
@@ -43,7 +44,7 @@ function SkeletonCell() {
 
 export function ArticleListFallback() {
   return (
-    <Stack spacing={2} alignItems={'center'} my={4}>
+    <Stack spacing={2} alignItems={'center'} my={4} width="100%">
       <Typography variant="h4">Board Page</Typography>
       <TableContainer component={Box}>
         <Table sx={{ minWidth: 'sm' }}>
@@ -67,9 +68,7 @@ export function ArticleListFallback() {
   );
 }
 
-export function ArticleList() {
-  const [page, setPage] = useState(0);
-
+export function ArticleList({ page }: ArticleListProps) {
   const navigate = useNavigate();
 
   const { data } = useQuery({
@@ -78,7 +77,7 @@ export function ArticleList() {
   });
 
   return (
-    <Stack spacing={2} alignItems={'center'} my={4}>
+    <Stack spacing={2} alignItems={'center'} my={4} width="100%">
       <Typography variant="h4">Board Page</Typography>
       <TableContainer component={Box}>
         <Table sx={{ minWidth: 'sm' }}>
@@ -102,12 +101,6 @@ export function ArticleList() {
           </TableBody>
         </Table>
       </TableContainer>
-
-      <Pagination
-        count={2}
-        page={page}
-        onChange={(_, newPage) => setPage(newPage)}
-      />
     </Stack>
   );
 }
