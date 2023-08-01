@@ -21,5 +21,5 @@ export const readArticle = MockApi<ReadArticleResponse, { articleIdx: number }>(
       likes: 123,
     },
   },
-  0.75,
+  0.7,
 );
