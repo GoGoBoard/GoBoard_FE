@@ -13,12 +13,12 @@ import Signup from './pages/Signup';
 
 export const router = createHashRouter(
   createRoutesFromElements(
-    <Route path="/" element={<Base />}>
-      <Route
-        index
-        element={<Index />}
-        handle={{ authRequired: false, redirectTo: '/board' }}
-      />
+    <Route
+      path="/"
+      element={<Base />}
+      handle={{ authRequired: false, redirectTo: '/board' }}
+    >
+      <Route index element={<Index />} />
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<Signup />} />
       <Route
