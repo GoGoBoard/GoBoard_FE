@@ -1,3 +1,3 @@
 import { MockApi } from '../fetch';
 
-export const getSession = MockApi({ success: true });
+export const getSession = MockApi({ success: false });
