@@ -18,7 +18,7 @@ export default function Login() {
     mutationFn: (authInfo: { id: string; password: string }) => login(authInfo),
   });
 
-  const validateCallback = useCallback(() => {
+  const validateAndLogin = useCallback(() => {
     setIdErr(id.length === 0);
     setPwErr(password.length === 0);
 
@@ -26,8 +26,13 @@ export default function Login() {
       loginQuery.mutate(
         { id, password },
         {
-          onSuccess: () => {
-            navigate('/board');
+          onSuccess: (data) => {
+            if (data.success) {
+              // navigate to board page
+              navigate('/board');
+            } else {
+              setPassword('');
+            }
           },
           onError: () => {
             setIdErr(true);
@@ -66,7 +71,7 @@ export default function Login() {
             <Button
               type="submit"
               variant="contained"
-              onClick={validateCallback}
+              onClick={validateAndLogin}
             >
               LOGIN
             </Button>
