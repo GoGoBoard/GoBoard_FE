@@ -1,6 +1,7 @@
 import { Paper, Skeleton, Stack, Typography } from '@mui/material';
 import { useQuery } from '@tanstack/react-query';
 
+import { CommentWrite } from './CommentWrite';
 import { DateTime } from './DateTime';
 import { UserAvatar, UserAvatarFallback } from './UserAvatar';
 import { ArticleComment, getComments } from '../api/article/comment';
@@ -52,7 +53,7 @@ export function CommentListFallback() {
 
 export function CommentList({ articleIdx }: CommentListProps) {
   const comments = useQuery({
-    queryKey: ['getCOmments', articleIdx],
+    queryKey: ['getComments', articleIdx],
     queryFn: () => getComments({ articleIdx }),
   });
 
@@ -66,6 +67,8 @@ export function CommentList({ articleIdx }: CommentListProps) {
         {comments.data?.data.map((comment) => (
           <Comment key={comment.index} comment={comment} />
         ))}
+
+        <CommentWrite articleIdx={articleIdx} />
       </Stack>
     </>
   );
