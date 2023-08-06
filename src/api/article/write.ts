@@ -5,4 +5,4 @@ export type ReadArticleResponse = { success: boolean };
 export const writeArticle = MockApi<
   ReadArticleResponse,
   { title: string; content: string }
->({ success: true });
+>({ success: true }, 1);

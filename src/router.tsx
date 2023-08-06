@@ -10,6 +10,7 @@ import Board from './pages/Board';
 import Index from './pages/Index';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
+import WriteArticle from './pages/WriteArticle';
 
 export const router = createHashRouter(
   createRoutesFromElements(
@@ -26,6 +27,7 @@ export const router = createHashRouter(
         handle={{ authRequired: true, redirectTo: '/login' }}
       >
         <Route index element={<Board />} />
+        <Route path="write" element={<WriteArticle />} />
         <Route path="article/:articleIdx" element={<Article />} />
       </Route>
     </Route>,

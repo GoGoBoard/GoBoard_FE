@@ -1,5 +1,6 @@
 import {
   Box,
+  Button,
   Skeleton,
   Stack,
   Table,
@@ -101,6 +102,14 @@ export function ArticleList({ page }: ArticleListProps) {
           </TableBody>
         </Table>
       </TableContainer>
+
+      <Button
+        variant="contained"
+        sx={{ alignSelf: 'end' }}
+        onClick={() => navigate('./write')}
+      >
+        NEW POST
+      </Button>
     </Stack>
   );
 }
