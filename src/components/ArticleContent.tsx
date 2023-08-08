@@ -40,13 +40,13 @@ export function ArticleContent({ articleIdx }: ArticleContentProps) {
   return (
     <>
       <Stack spacing={2} sx={{ mt: 4 }}>
-        <Typography variant="h3">{data?.data.title}</Typography>
-        <UserAvatar author={data?.data.author} />
-        <DateTime timestamp={data?.data.timestamp} />
+        <Typography variant="h3">{data?.title}</Typography>
+        <UserAvatar author={data?.memberId?.toString()} />
+        <DateTime timestamp={new Date(data?.writeTime ?? '').getTime()} />
       </Stack>
       <Divider sx={{ my: 4 }} />
       <Stack>
-        <Typography>{data?.data.content}</Typography>
+        <Typography>{data?.content}</Typography>
       </Stack>
     </>
   );

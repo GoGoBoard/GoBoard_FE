@@ -84,19 +84,19 @@ export function ArticleList({ page }: ArticleListProps) {
         <Table sx={{ minWidth: 'sm' }}>
           <ArticleListHead />
           <TableBody>
-            {data?.data.map((article) => (
+            {data?.map((article) => (
               <TableRow
                 hover
-                key={article.index}
-                onClick={() => navigate(`./article/${article.index}`)}
+                key={article.postId}
+                onClick={() => navigate(`./article/${article.postId}`)}
               >
-                <TableCell align="center">{article.index}</TableCell>
+                <TableCell align="center">{article.postId}</TableCell>
                 <TableCell align="center">{article.title}</TableCell>
-                <TableCell align="center">{article.author}</TableCell>
+                <TableCell align="center">{article.memberId}</TableCell>
                 <TableCell align="center">
-                  <DateTime timestamp={article.timestamp} />
+                  <DateTime timestamp={new Date(article.writeTime).getTime()} />
                 </TableCell>
-                <TableCell align="center">{article.likes}</TableCell>
+                <TableCell align="center">{0}</TableCell>
               </TableRow>
             ))}
           </TableBody>
