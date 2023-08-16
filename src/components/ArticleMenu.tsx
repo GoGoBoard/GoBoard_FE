@@ -4,7 +4,7 @@ import { Button, Stack } from '@mui/material';
 import { useMutation } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 
-import CloseableSnackbar from './ClosableSnackbar';
+import NotificationSnackbar from './NotificationSnackbar';
 import { deleteArticle } from '../api/article/delete';
 
 type ArticleMenuProps = {
@@ -40,7 +40,7 @@ export default function ArticleMenu({ articleIdx }: ArticleMenuProps) {
       <Button variant="contained" color="secondary" onClick={deleteCallback}>
         DELETE
       </Button>
-      <CloseableSnackbar snackbarText={snackbarText} />
+      <NotificationSnackbar snackbarText={snackbarText} />
     </Stack>
   );
 }

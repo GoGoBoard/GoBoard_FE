@@ -1,22 +1,14 @@
 import { useCallback, useState } from 'react';
 
-import CloseIcon from '@mui/icons-material/Close';
-import {
-  Button,
-  IconButton,
-  Paper,
-  Stack,
-  Snackbar,
-  TextField,
-} from '@mui/material';
+import { Button, Paper, Stack, TextField } from '@mui/material';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
+import NotificationSnackbar from './NotificationSnackbar';
 import { writeComment } from '../api/article/writeComment';
 
 export function CommentWrite({ articleIdx }: { articleIdx: number }) {
   const [comment, setComment] = useState('');
-  const [snackbarOpen, setSnackbarOpen] = useState(false);
-  const [isSuccess, setIsSuccess] = useState(true);
+  const [snackbarText, setSnackbarText] = useState<string | null>(null);
 
   const queryClient = useQueryClient();
   const writeMutation = useMutation({
@@ -29,8 +21,7 @@ export function CommentWrite({ articleIdx }: { articleIdx: number }) {
       { content: comment },
       {
         onSuccess: (data) => {
-          setSnackbarOpen(true);
-          setIsSuccess(data.success);
+          setSnackbarText('댓글이 작성되었습니다');
 
           if (data.success) {
             queryClient.invalidateQueries({
@@ -39,8 +30,7 @@ export function CommentWrite({ articleIdx }: { articleIdx: number }) {
           }
         },
         onError: () => {
-          setSnackbarOpen(true);
-          setIsSuccess(false);
+          setSnackbarText('댓글 작성에 실패했습니다');
         },
       },
     );
@@ -61,22 +51,7 @@ export function CommentWrite({ articleIdx }: { articleIdx: number }) {
           WRITE
         </Button>
       </Stack>
-      <Snackbar
-        open={snackbarOpen}
-        autoHideDuration={6000}
-        onClose={() => setSnackbarOpen(false)}
-        message={isSuccess ? 'Wrote successfully' : 'Write failed'}
-        action={
-          <IconButton
-            size="small"
-            aria-label="close"
-            color="inherit"
-            onClick={() => setSnackbarOpen(false)}
-          >
-            <CloseIcon />
-          </IconButton>
-        }
-      />
+      <NotificationSnackbar snackbarText={snackbarText} />
     </Paper>
   );
 }

@@ -3,14 +3,13 @@ import { useEffect, useState } from 'react';
 import CloseIcon from '@mui/icons-material/Close';
 import { IconButton, Snackbar } from '@mui/material';
 
-
-type CloseableSnackbarProps = {
+type NotificationSnackbarProps = {
   snackbarText: string | null;
 };
 
-export default function CloseableSnackbar({
+export default function NotificationSnackbar({
   snackbarText,
-}: CloseableSnackbarProps) {
+}: NotificationSnackbarProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {

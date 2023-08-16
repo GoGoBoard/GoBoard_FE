@@ -1,21 +1,13 @@
 import { useCallback, useRef, useState } from 'react';
 
-import CloseIcon from '@mui/icons-material/Close';
-import {
-  Button,
-  Container,
-  IconButton,
-  Snackbar,
-  Stack,
-  TextField,
-  Typography,
-} from '@mui/material';
+import { Button, Container, Stack, TextField, Typography } from '@mui/material';
 import { useMutation } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 import { filterXSS } from 'xss';
 
 import { writeArticle } from '../api/article/write';
 import ArticleWriter from '../components/ArticleWriter';
+import NotificationSnackbar from '../components/NotificationSnackbar';
 
 import type { RichTextEditorRef } from 'mui-tiptap';
 
@@ -89,22 +81,7 @@ export default function WriteArticle() {
           WRITE
         </Button>
       </Stack>
-      <Snackbar
-        open={snackbarText !== null}
-        autoHideDuration={6000}
-        onClose={() => setSnackbarText(null)}
-        message={snackbarText ?? ''}
-        action={
-          <IconButton
-            size="small"
-            aria-label="close"
-            color="inherit"
-            onClick={() => setSnackbarText(null)}
-          >
-            <CloseIcon />
-          </IconButton>
-        }
-      />
+      <NotificationSnackbar snackbarText={snackbarText} />
     </Container>
   );
 }
