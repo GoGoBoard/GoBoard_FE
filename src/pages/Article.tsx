@@ -7,6 +7,7 @@ import {
   ArticleContent,
   ArticleContentFallback,
 } from '../components/ArticleContent';
+import ArticleMenu from '../components/ArticleMenu';
 import { CommentList, CommentListFallback } from '../components/CommentList';
 
 export default function Article() {
@@ -26,6 +27,7 @@ export default function Article() {
       >
         <ArticleContent articleIdx={articleIdx} />
         <Divider sx={{ my: 4 }} />
+        <ArticleMenu articleIdx={articleIdx} />
         <CommentList articleIdx={articleIdx} />
       </Suspense>
     </Container>

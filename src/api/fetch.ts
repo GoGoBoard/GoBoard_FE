@@ -32,6 +32,18 @@ export async function PostApi<ResponseType, BodyType>(
 
   return json as ResponseType;
 }
+export async function DeleteApi<ResponseType>(endpoint: string) {
+  const resp = await fetch(`${import.meta.env.VITE_API_HOST}${endpoint}`, {
+    method: 'DELETE',
+  });
+  const text = await resp.text();
+
+  if (resp.status >= 300) {
+    throw new ApiError(text);
+  }
+
+  return text as ResponseType;
+}
 
 export function MockApi<ResponseType, BodyType>(
   response: ResponseType,
