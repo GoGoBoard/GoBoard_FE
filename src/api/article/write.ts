@@ -1,8 +1,7 @@
-import { MockApi } from '../fetch';
+import { ArticleDTO } from '../../types/article';
+import { PostApi } from '../fetch';
 
-export type ReadArticleResponse = { success: boolean };
+type WriteArticleRequest = { title: string; content: string };
 
-export const writeArticle = MockApi<
-  ReadArticleResponse,
-  { title: string; content: string }
->({ success: true }, 1);
+export const writeArticle = ({ title, content }: WriteArticleRequest) =>
+  PostApi<ArticleDTO, WriteArticleRequest>(`/api/article`, { title, content });

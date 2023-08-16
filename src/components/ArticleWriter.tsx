@@ -1,5 +1,6 @@
 import { RefObject } from 'react';
 
+import Link from '@tiptap/extension-link';
 import TextAlign from '@tiptap/extension-text-align';
 import TextUnderline from '@tiptap/extension-underline';
 import StarterKit from '@tiptap/starter-kit';
@@ -18,7 +19,6 @@ import {
   RichTextEditor,
   type RichTextEditorRef,
 } from 'mui-tiptap';
-
 
 type ArticleWriterProps = {
   rteRef: RefObject<RichTextEditorRef>;
@@ -51,6 +51,7 @@ export default function ArticleWriter({ rteRef }: ArticleWriterProps) {
           types: ['heading', 'paragraph'],
         }),
         TextUnderline,
+        Link,
         LinkBubbleMenuHandler,
       ]}
       renderControls={() => <MenuControls />}

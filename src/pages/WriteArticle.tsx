@@ -55,8 +55,8 @@ export default function WriteArticle() {
       },
       {
         onSuccess: (data) => {
-          if (data.success) {
-            navigate('/board');
+          if (data.postId) {
+            navigate(`/board/article/${data.postId}`);
           } else {
             setSnackbarText('서버에서 알 수 없는 오류가 발생하였습니다');
           }
