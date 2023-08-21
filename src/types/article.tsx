@@ -6,3 +6,7 @@ export type ArticleDTO = {
 
   writeTime: string;
 };
+
+export type ArticleListDTO = {
+  content: ArticleDTO[];
+};

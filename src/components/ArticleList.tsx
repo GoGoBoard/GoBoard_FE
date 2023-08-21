@@ -84,7 +84,7 @@ export function ArticleList({ page }: ArticleListProps) {
         <Table sx={{ minWidth: 'sm' }}>
           <ArticleListHead />
           <TableBody>
-            {data?.map((article) => (
+            {data?.content.map((article) => (
               <TableRow
                 hover
                 key={article.postId}
