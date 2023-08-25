@@ -4,7 +4,8 @@ import { useQuery } from '@tanstack/react-query';
 import { CommentWrite } from './CommentWrite';
 import { DateTime } from './DateTime';
 import { UserAvatar, UserAvatarFallback } from './UserAvatar';
-import { ArticleComment, getComments } from '../api/article/comment';
+import { getComments } from '../api/article/comment';
+import { ArticleComment } from '../types/comment';
 
 type CommentListProps = {
   articleIdx: number;
@@ -30,9 +31,9 @@ function Comment({ comment }: { comment: ArticleComment }) {
   return (
     <Paper elevation={1} sx={{ padding: 2 }}>
       <Stack spacing={1}>
-        <UserAvatar author={comment.author} />
+        <UserAvatar author={comment.nickname} />
         <Typography variant="body2">{comment.content}</Typography>
-        <DateTime variant="body2" timestamp={comment.timestamp} />
+        <DateTime variant="body2" timestamp={comment.write_time} />
       </Stack>
     </Paper>
   );
@@ -57,15 +58,15 @@ export function CommentList({ articleIdx }: CommentListProps) {
     queryFn: () => getComments({ articleIdx }),
   });
 
+  comments.data;
+
   return (
     <>
-      <Typography variant="h6">
-        댓글 {comments.data?.data.length ?? 0}개
-      </Typography>
+      <Typography variant="h6">댓글 {comments.data?.length ?? 0}개</Typography>
 
       <Stack spacing={4} padding={2}>
-        {comments.data?.data.map((comment) => (
-          <Comment key={comment.index} comment={comment} />
+        {comments?.data?.map((comment) => (
+          <Comment key={comment.write_time} comment={comment} />
         ))}
 
         <CommentWrite articleIdx={articleIdx} />

@@ -1,20 +1,5 @@
-import { MockApi } from '../fetch';
+import { ArticleCommentDTO } from '../../types/comment';
+import { GetApi } from '../fetch';
 
-export type ArticleComment = {
-  index: number;
-  content: string;
-  author: string;
-  timestamp: number;
-};
-export type CommentsResponse = { data: ArticleComment[] };
-
-export const getComments = MockApi<CommentsResponse, { articleIdx: number }>({
-  data: [
-    {
-      index: 123,
-      author: 'admin',
-      content: `Test comment text.`,
-      timestamp: Date.now() - Math.random() * 7200 * 1000,
-    },
-  ],
-});
+export const getComments = ({ articleIdx }: { articleIdx: number }) =>
+  GetApi<ArticleCommentDTO>(`/api/comment/${articleIdx}`);

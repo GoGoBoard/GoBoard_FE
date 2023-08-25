@@ -1,7 +1,7 @@
 import { Typography, TypographyProps } from '@mui/material';
 
 interface DateTimeProps extends TypographyProps {
-  timestamp?: number;
+  timestamp?: number | string;
 }
 
 function padNumber(value: number, length: number = 2) {
