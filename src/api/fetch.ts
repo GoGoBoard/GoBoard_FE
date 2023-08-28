@@ -19,7 +19,7 @@ export async function PostApi<ResponseType, BodyType>(
   endpoint: string,
   body: BodyType,
 ) {
-  const resp = await fetch(endpoint, {
+  const resp = await fetch(`${import.meta.env.VITE_API_HOST}${endpoint}`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(body),
