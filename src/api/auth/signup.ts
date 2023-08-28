@@ -1,15 +1,5 @@
-import { MockApi } from '../fetch';
+import { SignupRequestDto, SignupResponseDto } from '../../types/auth';
+import { PostApi } from '../fetch';
 
-type SignupResponse =
-  | {
-      success: true;
-    }
-  | {
-      success: false;
-      idErr: boolean;
-      pwErr: boolean;
-    };
-
-export const signup = MockApi<SignupResponse, { id: string; password: string }>(
-  { success: true },
-);
+export const signup = (req: SignupRequestDto) =>
+  PostApi<SignupResponseDto, SignupRequestDto>(`/api/member/join`, req);

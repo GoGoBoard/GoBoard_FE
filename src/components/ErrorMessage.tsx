@@ -1,6 +1,12 @@
+import { useCallback } from 'react';
+
 import ErrorIcon from '@mui/icons-material/Error';
 import { Button, Stack, Typography } from '@mui/material';
+import { useMutation } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
+
+import { logout } from '../api/auth/logout';
+import { useSessionLogout } from '../hooks/sessions';
 
 export default function ErrorMessage({
   resetErrorBoundary,
@@ -8,6 +14,27 @@ export default function ErrorMessage({
   resetErrorBoundary?: () => void;
 }) {
   const navigate = useNavigate();
+  const sessionLogout = useSessionLogout();
+  const logoutMutation = useMutation({
+    mutationKey: ['logout'],
+    mutationFn: logout,
+  });
+
+  const logoutCallback = useCallback(() => {
+    logoutMutation.mutate(
+      {},
+      {
+        onSuccess: () => {
+          sessionLogout();
+          navigate('/');
+        },
+        onError: () => {
+          sessionLogout();
+          navigate('/');
+        },
+      },
+    );
+  }, [logoutMutation, navigate, sessionLogout]);
 
   return (
     <Stack
@@ -31,6 +58,9 @@ export default function ErrorMessage({
         onClick={resetErrorBoundary || (() => navigate(0))}
       >
         Try again
+      </Button>
+      <Button color="secondary" onClick={logoutCallback}>
+        Back to the home
       </Button>
     </Stack>
   );

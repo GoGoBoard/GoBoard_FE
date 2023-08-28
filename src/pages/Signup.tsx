@@ -24,14 +24,15 @@ export default function Signup() {
   const [idErr, setIdErr] = useState(false);
   const [password, setPassword] = useState('');
   const [pwErr, setPwErr] = useState(false);
+  const [nickname, setNickname] = useState('');
+  const [nickErr, setNickErr] = useState(false);
 
   const [showPassword, setShowPassword] = useState(false);
 
   const [showSuccessDialog, setShowSuccessDialog] = useState(false);
 
   const signupMutation = useMutation({
-    mutationFn: (signupInfo: { id: string; password: string }) =>
-      signup(signupInfo),
+    mutationFn: signup,
   });
 
   const validateAndSignup = useCallback(() => {
@@ -40,25 +41,20 @@ export default function Signup() {
 
     if (id.length > 0 && password.length > 0) {
       signupMutation.mutate(
-        { id, password },
+        { loginId: id, password, nickname },
         {
-          onSuccess: (data) => {
-            if (data.success) {
-              // navigate to welcome page
-              setShowSuccessDialog(true);
-            } else {
-              setIdErr(data.idErr);
-              setPwErr(data.pwErr);
-            }
+          onSuccess: () => {
+            setShowSuccessDialog(true);
           },
           onError: () => {
             setIdErr(true);
-            setPassword('');
+            setPwErr(true);
+            setNickErr(true);
           },
         },
       );
     }
-  }, [id, password, signupMutation]);
+  }, [id, password, nickname, signupMutation]);
 
   return (
     <Container maxWidth="sm">
@@ -98,6 +94,14 @@ export default function Signup() {
               <Typography>Show</Typography>
             </Stack>
 
+            <TextField
+              variant="outlined"
+              label="Nickname"
+              value={nickname}
+              error={nickErr}
+              onChange={({ target }) => setNickname(target.value)}
+            />
+
             <Button
               type="submit"
               variant="contained"
@@ -107,10 +111,12 @@ export default function Signup() {
             </Button>
           </Stack>
         </form>
+
         <Dialog open={showSuccessDialog}>
           <DialogTitle>Signup Success</DialogTitle>
           <DialogContent>
-            Welcome to the GoBoard! You can now login with this account.
+            Welcome to the GoBoard {nickname}!<br />
+            You can now login with this account.
           </DialogContent>
           <DialogActions>
             <Button onClick={() => navigate('/login')}>

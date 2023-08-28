@@ -5,6 +5,7 @@ import { useMutation } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 
 import { login } from '../api/auth/login';
+import { useSessionLogin } from '../hooks/sessions';
 
 export default function Login() {
   const [id, setId] = useState('');
@@ -15,8 +16,9 @@ export default function Login() {
   const navigate = useNavigate();
 
   const loginQuery = useMutation({
-    mutationFn: (authInfo: { id: string; password: string }) => login(authInfo),
+    mutationFn: login,
   });
+  const sessionLogin = useSessionLogin();
 
   const validateAndLogin = useCallback(() => {
     setIdErr(id.length === 0);
@@ -24,15 +26,11 @@ export default function Login() {
 
     if (id.length > 0 && password.length > 0) {
       loginQuery.mutate(
-        { id, password },
+        { loginId: id, password },
         {
-          onSuccess: (data) => {
-            if (data.success) {
-              // navigate to board page
-              navigate('/board');
-            } else {
-              setPassword('');
-            }
+          onSuccess: () => {
+            sessionLogin();
+            navigate('/board');
           },
           onError: () => {
             setIdErr(true);
@@ -41,7 +39,7 @@ export default function Login() {
         },
       );
     }
-  }, [id, password, loginQuery, navigate]);
+  }, [id, password, loginQuery, navigate, sessionLogin]);
 
   return (
     <Container maxWidth="sm">
