@@ -6,6 +6,6 @@ import { PostApi } from '../fetch';
 
 export const likeArticle = ({ articleIdx }: { articleIdx: number }) =>
   PostApi<ArticleLikeResponseDto, ArticleLikeRequestDto>(
-    `/api/article/like/${articleIdx}`,
+    `/api/article/${articleIdx}/like`,
     {},
   );

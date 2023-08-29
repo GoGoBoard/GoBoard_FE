@@ -6,6 +6,6 @@ import { PostApi } from '../fetch';
 
 export const dislikeArticle = ({ articleIdx }: { articleIdx: number }) =>
   PostApi<ArticleDislikeResponseDto, ArticleDislikeRequestDto>(
-    `/api/article/dislike/${articleIdx}`,
+    `/api/article/${articleIdx}/dislike`,
     {},
   );
