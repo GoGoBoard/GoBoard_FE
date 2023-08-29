@@ -1,7 +1,8 @@
-import { ArticleListDTO } from '../../types/article';
+import {
+  ArticleListRequestDto,
+  ArticleListResponseDto,
+} from '../../types/article';
 import { GetApi } from '../fetch';
 
-type ListBoardRequest = { page: number };
-
-export const listBoard = ({ page }: ListBoardRequest) =>
-  GetApi<ArticleListDTO>(`/api/article/paging?p=${page}`);
+export const listBoard = ({ p }: ArticleListRequestDto) =>
+  GetApi<ArticleListResponseDto>(`/api/article/paging?p=${p}`);

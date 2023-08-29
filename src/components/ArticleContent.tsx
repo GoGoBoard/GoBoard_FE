@@ -41,7 +41,7 @@ export function ArticleContent({ articleIdx }: ArticleContentProps) {
     <>
       <Stack spacing={2} sx={{ mt: 4 }}>
         <Typography variant="h3">{data?.title}</Typography>
-        <UserAvatar author={data?.memberId?.toString()} />
+        <UserAvatar author={data?.nickname} />
         <DateTime timestamp={new Date(data?.writeTime ?? '').getTime()} />
       </Stack>
       <Divider sx={{ my: 4 }} />

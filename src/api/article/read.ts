@@ -1,7 +1,5 @@
-import { ArticleDTO } from '../../types/article';
+import { ArticleRequestDto, ArticleResponseDto } from '../../types/article';
 import { GetApi } from '../fetch';
 
-type ReadArticleRequest = { articleIdx: number };
-
-export const readArticle = ({ articleIdx }: ReadArticleRequest) =>
-  GetApi<ArticleDTO>(`/api/article/${articleIdx}`);
+export const readArticle = ({ articleIdx }: ArticleRequestDto) =>
+  GetApi<ArticleResponseDto>(`/api/article/${articleIdx}`);

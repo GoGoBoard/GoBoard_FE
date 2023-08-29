@@ -74,7 +74,7 @@ export function ArticleList({ page }: ArticleListProps) {
 
   const { data } = useQuery({
     queryKey: ['boardList', page],
-    queryFn: () => listBoard({ page }),
+    queryFn: () => listBoard({ p: page }),
   });
 
   return (
@@ -92,9 +92,9 @@ export function ArticleList({ page }: ArticleListProps) {
               >
                 <TableCell align="center">{article.postId}</TableCell>
                 <TableCell align="center">{article.title}</TableCell>
-                <TableCell align="center">{article.memberId}</TableCell>
+                <TableCell align="center">{article.nickname}</TableCell>
                 <TableCell align="center">
-                  <DateTime timestamp={new Date(article.writeTime).getTime()} />
+                  <DateTime timestamp={article.writeTime} />
                 </TableCell>
                 <TableCell align="center">{0}</TableCell>
               </TableRow>
