@@ -1,14 +1,13 @@
 import { useCallback, useState } from 'react';
 
+import ThumbDownIcon from '@mui/icons-material/ThumbDown';
+import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import { Button, Stack, Typography } from '@mui/material';
 import { useMutation } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 
 import NotificationSnackbar from './NotificationSnackbar';
 import { deleteArticle } from '../api/article/delete';
-
-import ThumbUpIcon from '@mui/icons-material/ThumbUp';
-import ThumbDownIcon from '@mui/icons-material/ThumbDown';
 import { likeArticle } from '../api/article/like';
 
 type ArticleMenuProps = {

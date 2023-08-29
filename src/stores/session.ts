@@ -7,6 +7,6 @@ type SessionState = {
 export const sessionState = atom<SessionState>({
   key: 'sessionState',
   default: {
-    login: false,
+    login: sessionStorage.getItem('session.login') === 'true',
   },
 });
