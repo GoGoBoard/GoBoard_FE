@@ -5,7 +5,9 @@ class ApiError extends Error {
 }
 
 export async function GetApi<ResponseType>(endpoint: string) {
-  const resp = await fetch(`${import.meta.env.VITE_API_HOST}${endpoint}`);
+  const resp = await fetch(`${import.meta.env.VITE_API_HOST}${endpoint}`, {
+    credentials: 'include',
+  });
   const json = await resp.json();
 
   if (resp.status >= 300) {
@@ -23,6 +25,7 @@ export async function PostApi<ResponseType, BodyType>(
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(body),
+    credentials: 'include',
   });
   const json = await resp.json();
 
@@ -35,6 +38,7 @@ export async function PostApi<ResponseType, BodyType>(
 export async function DeleteApi<ResponseType>(endpoint: string) {
   const resp = await fetch(`${import.meta.env.VITE_API_HOST}${endpoint}`, {
     method: 'DELETE',
+    credentials: 'include',
   });
   const text = await resp.text();
 
