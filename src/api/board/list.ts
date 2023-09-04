@@ -5,4 +5,4 @@ import {
 import { GetApi } from '../fetch';
 
 export const listBoard = ({ p }: ArticleListRequestDto) =>
-  GetApi<ArticleListResponseDto>(`/api/article/paging?p=${p}`);
+  GetApi<ArticleListResponseDto>(`/api/article/paging?page=${p}`);
