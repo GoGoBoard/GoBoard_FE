@@ -3,11 +3,12 @@ import { useCallback, useState } from 'react';
 import ThumbDownIcon from '@mui/icons-material/ThumbDown';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import { Button, Stack, Typography } from '@mui/material';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 
 import NotificationSnackbar from './NotificationSnackbar';
 import { deleteArticle } from '../api/article/delete';
+import { dislikeArticle } from '../api/article/dislike';
 import { likeArticle } from '../api/article/like';
 import { readArticle } from '../api/article/read';
 
@@ -18,6 +19,7 @@ export default function ArticleMenu({ articleIdx }: ArticleMenuProps) {
   const navigate = useNavigate();
   const [snackbarText, setSnackbarText] = useState<string | null>(null);
 
+  const queryClient = useQueryClient();
   const { data } = useQuery({
     queryKey: ['readArticle', articleIdx],
     queryFn: () => readArticle({ articleIdx }),
@@ -34,8 +36,8 @@ export default function ArticleMenu({ articleIdx }: ArticleMenuProps) {
   });
 
   const dislikeMutation = useMutation({
-    mutationKey: ['like', articleIdx],
-    mutationFn: () => likeArticle({ articleIdx }),
+    mutationKey: ['dislike', articleIdx],
+    mutationFn: () => dislikeArticle({ articleIdx }),
   });
 
   const backToListCallback = useCallback(() => {
@@ -55,23 +57,25 @@ export default function ArticleMenu({ articleIdx }: ArticleMenuProps) {
     likeMutation.mutate(undefined, {
       onSuccess: () => {
         setSnackbarText('게시글에 공감했습니다');
+        queryClient.invalidateQueries(['readArticle', articleIdx]);
       },
       onError: () => {
         setSnackbarText('게시글에 공감하는 데 오류가 발생했습니다');
       },
     });
-  }, [likeMutation]);
+  }, [articleIdx, queryClient, likeMutation]);
 
   const dislikeCallback = useCallback(() => {
     dislikeMutation.mutate(undefined, {
       onSuccess: () => {
-        setSnackbarText('게시글에 공감했습니다');
+        setSnackbarText('게시글에 비공감했습니다');
+        queryClient.invalidateQueries(['readArticle', articleIdx]);
       },
       onError: () => {
-        setSnackbarText('게시글에 공감하는 데 오류가 발생했습니다');
+        setSnackbarText('게시글에 비공감하는 데 오류가 발생했습니다');
       },
     });
-  }, [dislikeMutation]);
+  }, [articleIdx, queryClient, dislikeMutation]);
 
   return (
     <Stack spacing={2}>
@@ -93,7 +97,10 @@ export default function ArticleMenu({ articleIdx }: ArticleMenuProps) {
         <Button variant="contained" color="secondary" onClick={deleteCallback}>
           DELETE
         </Button>
-        <NotificationSnackbar snackbarText={snackbarText} />
+        <NotificationSnackbar
+          snackbarText={snackbarText}
+          onClose={() => setSnackbarText(null)}
+        />
       </Stack>
     </Stack>
   );
