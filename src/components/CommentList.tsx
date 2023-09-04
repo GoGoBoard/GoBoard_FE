@@ -33,7 +33,7 @@ function Comment({ comment }: { comment: ArticleComment }) {
       <Stack spacing={1}>
         <UserAvatar author={comment.nickname} />
         <Typography variant="body2">{comment.content}</Typography>
-        <DateTime variant="body2" timestamp={comment.write_time} />
+        <DateTime variant="body2" timestamp={comment.writeTime} />
       </Stack>
     </Paper>
   );
@@ -66,7 +66,7 @@ export function CommentList({ articleIdx }: CommentListProps) {
 
       <Stack spacing={4} padding={2}>
         {comments?.data?.map((comment) => (
-          <Comment key={comment.write_time} comment={comment} />
+          <Comment key={comment.writeTime} comment={comment} />
         ))}
 
         <CommentWrite articleIdx={articleIdx} />

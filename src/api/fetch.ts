@@ -49,6 +49,25 @@ export async function DeleteApi<ResponseType>(endpoint: string) {
   return text as ResponseType;
 }
 
+export async function FormPostApi<ResponseType, BodyType>(
+  endpoint: string,
+  body: BodyType,
+) {
+  const resp = await fetch(`${import.meta.env.VITE_API_HOST}${endpoint}`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(body),
+    credentials: 'include',
+  });
+  const json = await resp.json();
+
+  if (resp.status >= 300) {
+    throw new ApiError(json);
+  }
+
+  return json as ResponseType;
+}
+
 export function MockApi<ResponseType, BodyType>(
   response: ResponseType,
   failRatio: number = 0,

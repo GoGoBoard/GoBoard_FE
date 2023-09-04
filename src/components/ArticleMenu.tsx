@@ -3,12 +3,13 @@ import { useCallback, useState } from 'react';
 import ThumbDownIcon from '@mui/icons-material/ThumbDown';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import { Button, Stack, Typography } from '@mui/material';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 
 import NotificationSnackbar from './NotificationSnackbar';
 import { deleteArticle } from '../api/article/delete';
 import { likeArticle } from '../api/article/like';
+import { readArticle } from '../api/article/read';
 
 type ArticleMenuProps = {
   articleIdx: number;
@@ -16,6 +17,11 @@ type ArticleMenuProps = {
 export default function ArticleMenu({ articleIdx }: ArticleMenuProps) {
   const navigate = useNavigate();
   const [snackbarText, setSnackbarText] = useState<string | null>(null);
+
+  const { data } = useQuery({
+    queryKey: ['readArticle', articleIdx],
+    queryFn: () => readArticle({ articleIdx }),
+  });
 
   const deleteMutation = useMutation({
     mutationKey: ['delete', articleIdx],
@@ -72,12 +78,12 @@ export default function ArticleMenu({ articleIdx }: ArticleMenuProps) {
       <Stack spacing={2} direction="row" justifyContent="center">
         <Button variant="outlined" onClick={likeCallback}>
           <ThumbUpIcon />
-          <Typography>LIKE</Typography>
+          <Typography>LIKE {data?.like ?? 0}</Typography>
         </Button>
 
         <Button variant="outlined" onClick={dislikeCallback}>
           <ThumbDownIcon />
-          <Typography>DISLIKE</Typography>
+          <Typography>DISLIKE {data?.dislike ?? 0}</Typography>
         </Button>
       </Stack>
       <Stack spacing={2} direction="row" justifyContent="flex-end">

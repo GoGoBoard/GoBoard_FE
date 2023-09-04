@@ -1,8 +1,18 @@
-import { MockApi } from '../fetch';
+import {
+  CommentWriteRequestDto,
+  CommentWriteResponseDto,
+} from '../../types/comment';
+import { PostApi } from '../fetch';
 
 export type CommentsResponse = { success: boolean };
 
-export const writeComment = MockApi<
-  CommentsResponse,
-  { articleIdx: number; content: string }
->({ success: true });
+export const writeComment = ({
+  articleIdx,
+  content,
+}: CommentWriteRequestDto & { articleIdx: number }) =>
+  PostApi<CommentWriteResponseDto, CommentWriteRequestDto>(
+    `/api/comment/${articleIdx}`,
+    {
+      content,
+    },
+  );

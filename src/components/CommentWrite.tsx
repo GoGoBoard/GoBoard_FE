@@ -20,14 +20,12 @@ export function CommentWrite({ articleIdx }: { articleIdx: number }) {
     writeMutation.mutate(
       { content: comment },
       {
-        onSuccess: (data) => {
+        onSuccess: () => {
           setSnackbarText('댓글이 작성되었습니다');
 
-          if (data.success) {
-            queryClient.invalidateQueries({
-              queryKey: ['getComments', articleIdx],
-            });
-          }
+          queryClient.invalidateQueries({
+            queryKey: ['getComments', articleIdx],
+          });
         },
         onError: () => {
           setSnackbarText('댓글 작성에 실패했습니다');
