@@ -1,3 +1,5 @@
+import { useMemo } from 'react';
+
 import { Divider, Skeleton, Stack, Typography } from '@mui/material';
 import { useQuery } from '@tanstack/react-query';
 
@@ -37,6 +39,13 @@ export function ArticleContent({ articleIdx }: ArticleContentProps) {
     queryFn: () => readArticle({ articleIdx }),
   });
 
+  const articleInnerHTML = useMemo(
+    () => ({
+      __html: filterXSS(data?.content ?? '<p></p>'),
+    }),
+    [data?.content],
+  );
+
   return (
     <>
       <Stack spacing={2} sx={{ mt: 4 }}>
@@ -46,7 +55,7 @@ export function ArticleContent({ articleIdx }: ArticleContentProps) {
       </Stack>
       <Divider sx={{ my: 4 }} />
       <Stack>
-        <Typography>{data?.content}</Typography>
+        <div dangerouslySetInnerHTML={articleInnerHTML} />
       </Stack>
     </>
   );

@@ -49,7 +49,10 @@ export function CommentWrite({ articleIdx }: { articleIdx: number }) {
           WRITE
         </Button>
       </Stack>
-      <NotificationSnackbar snackbarText={snackbarText} />
+      <NotificationSnackbar
+        snackbarText={snackbarText}
+        onClose={() => setSnackbarText(null)}
+      />
     </Paper>
   );
 }

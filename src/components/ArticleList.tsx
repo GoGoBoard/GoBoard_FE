@@ -96,7 +96,7 @@ export function ArticleList({ page }: ArticleListProps) {
                 <TableCell align="center">
                   <DateTime timestamp={article.writeTime} />
                 </TableCell>
-                <TableCell align="center">{0}</TableCell>
+                <TableCell align="center">{article.recommend}</TableCell>
               </TableRow>
             ))}
           </TableBody>
