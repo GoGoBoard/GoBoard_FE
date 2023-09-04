@@ -5,6 +5,7 @@ export type ArticleListItem = {
   writeTime: number;
 
   postId: number;
+  recommend: number;
 };
 
 export type ArticleListRequestDto = {
@@ -38,11 +39,12 @@ export type ArticleResponseDto = {
 
 // Write Article
 
-export type ArticleWriteDto = {
+export type ArticleWriteRequestDto = {
   title: string;
   content: string;
   files: File[];
 };
+export type ArticleWriteResponseDto = Record<string, never>;
 
 // Delete Article
 

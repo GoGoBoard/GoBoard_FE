@@ -1,10 +1,16 @@
-import { ArticleWriteDto } from '../../types/article';
-import { PostApi } from '../fetch';
+import {
+  ArticleWriteRequestDto,
+  ArticleWriteResponseDto,
+} from '../../types/article';
+import { PostFormApi } from '../fetch';
 
-type WriteArticleRequest = { title: string; content: string };
-
-export const writeArticle = ({ title, content }: WriteArticleRequest) =>
-  PostApi<ArticleWriteDto, WriteArticleRequest>(`/api/article`, {
+export const writeArticle = ({
+  title,
+  content,
+  files,
+}: ArticleWriteRequestDto) =>
+  PostFormApi<ArticleWriteResponseDto>(`/api/article`, {
     title,
     content,
+    files,
   });

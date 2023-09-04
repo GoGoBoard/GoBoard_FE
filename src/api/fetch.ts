@@ -49,14 +49,20 @@ export async function DeleteApi<ResponseType>(endpoint: string) {
   return text as ResponseType;
 }
 
-export async function FormPostApi<ResponseType, BodyType>(
+export async function PostFormApi<ResponseType>(
   endpoint: string,
-  body: BodyType,
+  body: { [key: string]: string | File[] },
 ) {
+  const formData = new FormData();
+  Object.entries(body).forEach(([key, value]) => {
+    if (value instanceof Array)
+      value.forEach((eachValue) => formData.append(key, eachValue));
+    else formData.append(key, value);
+  });
+
   const resp = await fetch(`${import.meta.env.VITE_API_HOST}${endpoint}`, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(body),
+    body: formData,
     credentials: 'include',
   });
   const json = await resp.json();

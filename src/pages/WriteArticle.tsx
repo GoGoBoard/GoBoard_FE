@@ -2,6 +2,7 @@ import { useCallback, useRef, useState } from 'react';
 
 import { Button, Container, Stack, TextField, Typography } from '@mui/material';
 import { useMutation } from '@tanstack/react-query';
+import { MuiFileInput } from 'mui-file-input';
 import { useNavigate } from 'react-router-dom';
 import { filterXSS } from 'xss';
 
@@ -17,12 +18,16 @@ export default function WriteArticle() {
   const rteRef = useRef<RichTextEditorRef>(null);
 
   const [title, setTitle] = useState('');
+  const [files, setFiles] = useState<File[]>([]);
   const [snackbarText, setSnackbarText] = useState<string | null>(null);
 
   const postMutation = useMutation({
     mutationKey: ['post', Date.now()],
-    mutationFn: (writeArticleOpts: { title: string; content: string }) =>
-      writeArticle(writeArticleOpts),
+    mutationFn: (writeArticleOpts: {
+      title: string;
+      content: string;
+      files: File[];
+    }) => writeArticle(writeArticleOpts),
   });
 
   const validateAndPost = useCallback(() => {
@@ -44,6 +49,7 @@ export default function WriteArticle() {
       {
         title,
         content: safeHTML,
+        files,
       },
       {
         onSuccess: (data) => {
@@ -58,7 +64,7 @@ export default function WriteArticle() {
         },
       },
     );
-  }, [navigate, postMutation, title]);
+  }, [navigate, postMutation, title, files]);
 
   return (
     <Container maxWidth="md">
@@ -73,6 +79,7 @@ export default function WriteArticle() {
           onChange={({ target }) => setTitle(target.value)}
         />
         <ArticleWriter rteRef={rteRef} />
+        <MuiFileInput multiple value={files} onChange={setFiles} />
         <Button
           variant="contained"
           onClick={validateAndPost}
@@ -81,7 +88,10 @@ export default function WriteArticle() {
           WRITE
         </Button>
       </Stack>
-      <NotificationSnackbar snackbarText={snackbarText} />
+      <NotificationSnackbar
+        snackbarText={snackbarText}
+        onClose={() => setSnackbarText(null)}
+      />
     </Container>
   );
 }
