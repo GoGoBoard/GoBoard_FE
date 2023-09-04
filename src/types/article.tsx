@@ -36,6 +36,14 @@ export type ArticleResponseDto = {
   comments: Comment[];
 };
 
+// Write Article
+
+export type ArticleWriteDto = {
+  title: string;
+  content: string;
+  files: File[];
+};
+
 // Delete Article
 
 export type ArticleDeleteRequestDto = {
